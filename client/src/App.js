@@ -1,7 +1,14 @@
+import React from 'react';
 import './App.css';
 
+import HomePage from './homepage.component';
+
 function App() {
-	return <div className='App'>Paper-ecommerce-client</div>;
+	return (
+		<div>
+			<HomePage />
+		</div>
+	);
 }
 
 export default App;

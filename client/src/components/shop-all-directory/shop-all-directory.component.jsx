@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 
 import MenuItem from '../menu-item/menu-item.component';
 
-import BlogDirectoryContext from '../../contexts/blog-directory/blog-directory.context';
+import ShopAllDirectoryContext from '../../contexts/shop-all-directory/shop-all-directory.context';
 
-import './blog-directory.styles.scss';
+import './shop-all-directory.styles.scss';
 
-function BlogDirectory() {
-	const sections = useContext(BlogDirectoryContext);
+function ShopAllDirectory() {
+	const sections = useContext(ShopAllDirectoryContext);
 
 	return (
 		<div className='directory-menu'>
@@ -18,4 +18,4 @@ function BlogDirectory() {
 	);
 }
 
-export default BlogDirectory;
+export default ShopAllDirectory;

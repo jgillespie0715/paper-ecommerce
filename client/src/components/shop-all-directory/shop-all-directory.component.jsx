@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import MenuItem from '../menu-item/menu-item.component';
+import ShopAllMenuItem from '../shop-all-menu-item/shop-all-menu-item.component';
 
 import ShopAllDirectoryContext from '../../contexts/shop-all-directory/shop-all-directory.context';
 
@@ -8,11 +8,10 @@ import './shop-all-directory.styles.scss';
 
 function ShopAllDirectory() {
 	const sections = useContext(ShopAllDirectoryContext);
-
 	return (
 		<div className='directory-menu'>
 			{sections.map(({ id, ...otherSectionProps }) => (
-				<MenuItem key={id} {...otherSectionProps} />
+				<ShopAllMenuItem key={id} id={id} {...otherSectionProps} />
 			))}
 		</div>
 	);

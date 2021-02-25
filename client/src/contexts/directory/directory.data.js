@@ -19,6 +19,7 @@ const DIRECTORY_DATA = [
 		size: 'large',
 		credit:
 			'https://unsplash.com/photos/xvkSnspiETA?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink',
+		svgcredit: `<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>`,
 	},
 ];
 

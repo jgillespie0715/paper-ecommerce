@@ -6,6 +6,7 @@ import ShopAllPage from './pages/shop-all-page/shop-all-page.component';
 import ShopPage from './pages/shop-page/shop-page.component';
 import SignInAndSignUp from './pages/signin-signup-page/signin-signup.component';
 import Header from './components/header/header.component';
+import BlogPage from './pages/blog-page/blog-page.component';
 
 import './App.css';
 
@@ -15,6 +16,7 @@ function App() {
 			<Header />
 			<Switch>
 				<Route exact path='/' component={HomePage} />
+				<Route exact path='/blog' component={BlogPage} />
 				<Route exact path='/shop-all' component={ShopAllPage} />
 				<Route path='/shop' component={ShopPage} />
 				<Route exact path='/signin' component={SignInAndSignUp} />

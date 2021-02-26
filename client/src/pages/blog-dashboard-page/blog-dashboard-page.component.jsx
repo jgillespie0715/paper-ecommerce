@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import BlogList from './blogs/BlogList';
 
-const Dashboard = () => {
+function Dashboard() {
 	// <BlogList />
 	return (
 		<div>
@@ -13,6 +12,6 @@ const Dashboard = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default Dashboard;

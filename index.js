@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const app = require('./server.js');
+const app = require('./server/index.js');
 
 const PORT = process.env.PORT || 5000;
 

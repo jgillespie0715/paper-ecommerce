@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 
 import formFields from '../blog-form-fields/blog-form-fields.component';
-
-function BlogForm() {
+import BlogField from '../blog-field/blog-field.component';
+// TODO: add react-final-form
+function BlogForm({ onBlogSubmit }) {
+	function Field({ label, name }) {
+		return (
+			<Fragment>
+				key={name}
+				component={BlogField}
+				type="text" label={label}
+				name={name}
+			</Fragment>
+		);
+	}
 	function renderFields() {
-		return _.map(formFields, () => {
-			return <div className='field'>Field</div>;
-		});
+		return _.map(formFields, Field);
 	}
 
 	return (
 		<div>
-			<form>
+			<form onSubmit={onBlogSubmit}>
 				{renderFields()}
 				<Link to='/blogs' className='red btn-flat white-text'>
 					Cancel

@@ -1,26 +1,21 @@
-// BlogNew shows BlogForm and BlogFormReview
-import React, { Component } from 'react';
-//import BlogForm from './BlogForm';
-//import BlogFormReview from './BlogFormReview';
+import React, { useContext } from 'react';
+import BlogForm from '../../components/blog-form/blog-form.component';
+import BlogFormReview from '../../components/blog-form-review/blog-form-review.component';
+import BlogContext from '../../contexts/blog/blog.context';
 
-class BlogNew extends Component {
-	state = { showFormReview: false };
-	//  <BlogFormReview
-	// 	onCancel={() => this.setState({ showFormReview: false })}
-	// />
+function BlogNew({ setShowFormReview }) {
+	const blogContext = useContext(BlogContext);
+	const { showFormReview } = blogContext;
 
-	// <BlogForm onBlogSubmit={() => this.setState({ showFormReview: true })} />
-	// renderContent() {
-	// 	// do stuff
-	// 	}
+	function renderContent() {
+		if (showFormReview) {
+			return <BlogFormReview onCancel={() => setShowFormReview()} />;
+		}
 
-	// 	return (
-
-	// 	);
-
-	render() {
-		return <div>render BlogForm</div>;
+		return <BlogForm onBlogSubmit={() => setShowFormReview()} />;
 	}
-}
 
+	return <div>New Blog{renderContent()}</div>;
+}
+// TODO: react-final-form
 export default BlogNew;

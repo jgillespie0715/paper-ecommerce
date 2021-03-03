@@ -9,7 +9,7 @@ const dotenv = require('dotenv');
 const refresh = require('passport-oauth2-refresh');
 const blogRoutes = require('./routes/blog');
 const authRoutes = require('./routes/auth');
-const { OAuth2Strategy: GoogleStrategy } = require('passport-google-oauth');
+
 //const googleStrategyConfig = require('./services/passport');
 
 module.exports = () => {
@@ -31,43 +31,20 @@ module.exports = () => {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	passport.serializeUser((user, done) => {
-		done(null, user.id);
-	});
-
-	passport.deserializeUser((id, done) => {
-		User.findById(id).then((user) => {
-			done(null, user);
-		});
-	});
-
-	// Google OAUth login
-	const googleStrategyConfig = new GoogleStrategy(
-		{
-			clientID: process.env.GOOGLE_ID,
-			clientSecret: process.env.GOOGLE_SECRET,
-			callbackURL: 'http://localhost:8080/auth/google/callback',
-		},
-		async (accessToken, refreshToken, profile, done) => {
-			try {
-				const existingUser = await User.findOne({ googleId: profile.id });
-				if (existingUser) {
-					return done(null, existingUser);
-				}
-				const user = await new User({
-					googleId: profile.id,
-					displayName: profile.displayName,
-				}).save();
-				done(null, user);
-			} catch (err) {
-				done(err, null);
-			}
-		}
-	);
-
-	passport.use('google', googleStrategyConfig);
 	//refresh.use('google', googleStrategyConfig);
+	/*
+****************************************************************************
+this app route DOES NOT get a callback, it will never be executed because google executes its own network call to the callback route
+*/
+	app.get(
+		'/auth/google',
 
+		passport.authenticate('google', {
+			scope: ['profile', 'email'],
+			accessType: 'offline',
+			prompt: 'consent',
+		})
+	);
 	app.use('/api', blogRoutes);
 	app.use('/auth', authRoutes);
 

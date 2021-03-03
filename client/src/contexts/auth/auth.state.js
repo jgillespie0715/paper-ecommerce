@@ -17,9 +17,11 @@ function AuthState(props) {
 	}
 	async function signInWithGoogle() {
 		console.log('HIT');
-		await axios.get('/auth/google');
-		// const res = await axios.get('/api/current_user');
-		// const res = { user: 'testUser' };
+		try {
+			await axios.get('/auth/google');
+		} catch (error) {
+			console.log('error in authState:', error);
+		}
 
 		// dispatch({ type: FETCH_USER, payload: res.data });
 	}

@@ -42,6 +42,7 @@ function SignIn() {
 				/>
 				<div className='buttons'>
 					<CustomButton type='submit'> Sign In </CustomButton>
+					<a href={'/auth/google'}>Login With Google</a>
 					<CustomButton type='button' onClick={signInWithGoogle}>
 						Sign In With Google
 					</CustomButton>

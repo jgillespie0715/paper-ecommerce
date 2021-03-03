@@ -13,9 +13,6 @@ function Header() {
 				<Link className='option' to='/blog'>
 					BLOG
 				</Link>
-				<Link className='option' to='/blogs'>
-					MY BLOGS
-				</Link>
 				<Link className='option' to='/shop'>
 					SHOP
 				</Link>

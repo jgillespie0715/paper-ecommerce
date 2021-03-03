@@ -1,17 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import map from 'lodash/map';
 import { Link } from 'react-router-dom';
-import BlogContext from '../../contexts/blog/blog.context';
 
 function BlogList() {
-	const blogContext = useContext(BlogContext);
-	const { fetchBlogs, blogs } = blogContext;
-	useEffect(() => {
-		fetchBlogs();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 	function renderBlogs() {
-		return map(blogs, (blog) => {
+		return map(this.props.blogs, (blog) => {
 			return (
 				<div className='card darken-1 horizontal' key={blog._id}>
 					<div className='card-stacked'>
@@ -28,12 +21,7 @@ function BlogList() {
 		});
 	}
 
-	return (
-		<div>
-			BlogList
-			{renderBlogs()}
-		</div>
-	);
+	return <div>{renderBlogs()}</div>;
 }
 
 export default BlogList;

@@ -5,7 +5,9 @@ function BlogField() {
 		<div className='input.name'>
 			<label>label here</label>
 			<input style={{ marginBottom: '5px' }} />
-			<div className='red-text' style={{ marginBottom: '20px' }}></div>
+			<div className='red-text' style={{ marginBottom: '20px' }}>
+				touched and error
+			</div>
 		</div>
 	);
 }

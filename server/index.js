@@ -15,7 +15,7 @@ const { OAuth2Strategy: GoogleStrategy } = require('passport-google-oauth');
 module.exports = () => {
 	const app = express();
 	// server config and db connect
-	dotenv.config({ path: 'config/.env' });
+	dotenv.config({ path: '.env' });
 	connectDB();
 	app.use(cors());
 	app.use(bodyParser.json());

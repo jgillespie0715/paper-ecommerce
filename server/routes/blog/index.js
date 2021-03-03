@@ -4,7 +4,6 @@ const { requireLogin } = require('./controllers');
 const Blog = require('../../models/Blog');
 
 router.get('/current_user', (req, res, next) => {
-	console.log('hit blog');
 	res.send(req.user);
 });
 

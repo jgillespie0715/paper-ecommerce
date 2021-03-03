@@ -15,11 +15,20 @@ function AuthState(props) {
 
 		dispatch({ type: FETCH_USER, payload: res.data });
 	}
+	async function signInWithGoogle() {
+		console.log('HIT');
+		await axios.get('/auth/google');
+		// const res = await axios.get('/api/current_user');
+		// const res = { user: 'testUser' };
+
+		// dispatch({ type: FETCH_USER, payload: res.data });
+	}
 
 	return (
 		<AuthContext.Provider
 			value={{
 				fetchUser,
+				signInWithGoogle,
 			}}
 		>
 			{props.children}

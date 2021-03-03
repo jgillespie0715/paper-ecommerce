@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import AuthContext from '../../contexts/auth/auth.context';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 import './sign-in.styles.scss';
 
 function SignIn() {
+	const authContext = useContext(AuthContext);
+	const { signInWithGoogle } = authContext;
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -39,7 +42,9 @@ function SignIn() {
 				/>
 				<div className='buttons'>
 					<CustomButton type='submit'> Sign In </CustomButton>
-					<CustomButton type='button'>Sign In With Google</CustomButton>
+					<CustomButton type='button' onClick={signInWithGoogle}>
+						Sign In With Google
+					</CustomButton>
 				</div>
 			</form>
 		</div>

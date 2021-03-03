@@ -1,16 +1,14 @@
 const express = require('express');
 const connectDB = require('./models');
 const passport = require('passport');
+// const passport = require('./services/passport');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const refresh = require('passport-oauth2-refresh');
 const blogRoutes = require('./routes/blog');
 const authRoutes = require('./routes/auth');
-
-//const googleStrategyConfig = require('./services/passport');
 
 module.exports = () => {
 	const app = express();
@@ -27,14 +25,16 @@ module.exports = () => {
 		})
 	);
 
+	require('./services/passport');
 	// Passport OAuth session
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	//refresh.use('google', googleStrategyConfig);
 	/*
 ****************************************************************************
 this app route DOES NOT get a callback, it will never be executed because google executes its own network call to the callback route
+// throws error if put into route file with current config
+
 */
 	app.get(
 		'/auth/google',

@@ -48,7 +48,7 @@ function SignIn() {
 					<div class='google-btn'>
 						<a href='/auth/google'>
 							<img
-								class='google-btn'
+								className='google-btn'
 								alt='sign-in with Google'
 								src='https://i.ibb.co/K66dS53/btn-google-signin-dark-normal-web-2x.png'
 							/>

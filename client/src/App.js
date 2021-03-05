@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import HomePage from './pages/home-page/homepage.component';
 import ShopAllPage from './pages/shop-all-page/shop-all-page.component';
@@ -14,12 +14,12 @@ import Dashboard from './pages/blog-dashboard-page/blog-dashboard-page.component
 
 import './App.css';
 
-function App({ match }) {
+function App() {
 	const authContext = useContext(AuthContext);
-	const { fetchUser } = authContext;
+	const { isUserAuthenticated, currentUser } = authContext;
 	//  TODO: no /:login in routes, figure out how to do this
 	useEffect(() => {
-		fetchUser();
+		isUserAuthenticated();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
@@ -28,7 +28,13 @@ function App({ match }) {
 			<Switch>
 				<Route exact path='/shop-all' component={ShopAllPage} />
 				<Route path='/shop' component={ShopPage} />
-				<Route exact path='/signin' component={SignInAndSignUp} />
+				<Route
+					exact
+					path='/signin'
+					render={() =>
+						currentUser ? <Redirect to='/' /> : <SignInAndSignUp />
+					}
+				/>
 				<Route path='/blogs/new' component={BlogNew} />
 				<Route exact path='/blogs/:_id' component={BlogShow} />
 				<Route path='/blogs' component={Dashboard} />

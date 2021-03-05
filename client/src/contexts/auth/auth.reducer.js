@@ -1,25 +1,28 @@
-import { FETCH_USER } from '../types';
-import AuthActionTypes from './auth.types';
+import {
+	SIGN_IN_SUCCESS,
+	SIGN_OUT_SUCCESS,
+	SIGN_IN_FAILURE,
+	SIGN_OUT_FAILURE,
+	SIGN_UP_FAILURE,
+} from './auth.types.js';
 
 function AuthReducer(state, action) {
 	switch (action.type) {
-		case FETCH_USER:
-			return action.payload || false;
-		case AuthActionTypes.SIGN_IN_SUCCESS:
+		case SIGN_IN_SUCCESS:
 			return {
 				...state,
 				currentUser: action.payload,
 				error: null,
 			};
-		case AuthActionTypes.SIGN_OUT_SUCCESS:
+		case SIGN_OUT_SUCCESS:
 			return {
 				...state,
 				currentUser: null,
 				error: null,
 			};
-		case AuthActionTypes.SIGN_IN_FAILURE:
-		case AuthActionTypes.SIGN_OUT_FAILURE:
-		case AuthActionTypes.SIGN_UP_FAILURE:
+		case SIGN_IN_FAILURE:
+		case SIGN_OUT_FAILURE:
+		case SIGN_UP_FAILURE:
 			return {
 				...state,
 				error: action.payload,

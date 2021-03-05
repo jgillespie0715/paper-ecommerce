@@ -8,13 +8,14 @@ module.exports = function (app) {
 			//changeOrigin: true,
 		})
 	);
+	app.use(
+		createProxyMiddleware('/auth/*', {
+			target: 'http://localhost:5000',
+		})
+	);
+	app.use(
+		createProxyMiddleware('/api/*', {
+			target: 'http://localhost:5000',
+		})
+	);
 };
-
-// "proxy": {
-//   "/auth/*": {
-//     "target": "http://localhost:5000"
-//   },
-//   "/api/*": {
-//     "target": "http://localhost:5000"
-//   }
-// },

@@ -11,6 +11,11 @@ authRouter.get(
 	}
 );
 
+authRouter.get('/current_user', (req, res, next) => {
+	console.log('HIT current_user');
+	res.send(req.user);
+});
+
 authRouter.get('/logout', (req, res) => {
 	req.logout();
 	res.redirect('http://localhost:3000');

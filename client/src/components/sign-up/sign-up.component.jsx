@@ -1,19 +1,34 @@
-import React from 'react';
-
+import React, { useContext, useState } from 'react';
+import AuthContext from '../../contexts/auth/auth.context';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 import './sign-up.styles.scss';
-
+// TODO: keeping this state in signup component, not needed anywhere else, but this state and database
 function SignUp() {
+	const authContext = useContext(AuthContext);
+	const { signUp } = authContext;
+	const [userCredentials, setUserCredentials] = useState({
+		displayName: '',
+		email: '',
+		password: '',
+		confirmPassword: '',
+	});
+
+	const { displayName, email, password, confirmPassword } = userCredentials;
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		//  do stuff
+		if (password !== confirmPassword) {
+			alert('passwords dont match');
+			return;
+		}
+		signUp({ displayName, email, password });
 	};
 
 	const handleChange = async (e) => {
-		//  do stuff
+		const { name, value } = e.target;
+		setUserCredentials({ ...userCredentials, [name]: value });
 	};
 
 	return (
@@ -24,7 +39,7 @@ function SignUp() {
 				<FormInput
 					type='text'
 					name='displayName'
-					value=''
+					value={displayName}
 					onChange={handleChange}
 					label='Display Name'
 					required
@@ -32,7 +47,7 @@ function SignUp() {
 				<FormInput
 					type='email'
 					name='email'
-					value=''
+					value={email}
 					onChange={handleChange}
 					label='Email'
 					required
@@ -40,7 +55,7 @@ function SignUp() {
 				<FormInput
 					type='password'
 					name='password'
-					value=''
+					value={password}
 					onChange={handleChange}
 					label='Password'
 					required
@@ -48,7 +63,7 @@ function SignUp() {
 				<FormInput
 					type='password'
 					name='confirmPassword'
-					value=''
+					value={confirmPassword}
 					onChange={handleChange}
 					label='Confirm Password'
 					required

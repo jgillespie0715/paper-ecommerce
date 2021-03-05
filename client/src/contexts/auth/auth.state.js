@@ -68,13 +68,17 @@ function AuthState(props) {
 		}
 	}
 
-	async function signUp() {
+	async function signUp(email, password, displayName) {
 		try {
 			// TODO: build out backend route and what response is being sent
 			// Will this sign in user as well after signup ?
-			const { user } = await axios.get('/auth/signup');
-			console.log('signUP success in authState:', user);
-			dispatch({ type: SIGN_UP_SUCCESS, payload: user });
+			const { data } = await axios.post('/auth/signup', {
+				email,
+				password,
+				displayName,
+			});
+			console.log('signUP success in authState:', data);
+			dispatch({ type: SIGN_UP_SUCCESS, payload: data });
 		} catch (error) {
 			console.log('error in signUP in authState', error);
 			dispatch({ type: SIGN_UP_FAILURE, payload: error });

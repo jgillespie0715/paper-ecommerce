@@ -32,7 +32,7 @@ function SignIn() {
 					type='email'
 					value=''
 					handleChange={handleChange}
-					label='email'
+					label='Email'
 					required
 				/>
 				<FormInput
@@ -40,12 +40,12 @@ function SignIn() {
 					type='password'
 					value=''
 					handleChange={handleChange}
-					label='password'
+					label='Password'
 					required
 				/>
 				<div className='buttons'>
 					<CustomButton type='submit'> Sign In </CustomButton>
-					<div class='google-btn'>
+					<div className='google-btn'>
 						<a href='/auth/google'>
 							<img
 								className='google-btn'

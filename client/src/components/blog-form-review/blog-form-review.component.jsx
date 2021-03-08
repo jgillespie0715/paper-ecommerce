@@ -1,27 +1,35 @@
-import React, { useContext } from 'react';
-import _ from 'lodash';
+import React, { Fragment, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
-
-import formFields from '../blog-form-fields/blog-form-fields.component';
 import BlogContext from '../../contexts/blog/blog.context';
 
-// TODO: onCancel, alerts, loading in common context
-function BlogFormReview({ formValues, history, onCancel }) {
+function BlogFormReview({ history, onCancel, blogFields }) {
 	const blogContext = useContext(BlogContext);
 	const { submitBlog } = blogContext;
+	const { title, content } = blogFields;
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		submitBlog({ title, content }, history);
+	};
+
 	function renderFields() {
-		return _.map(formFields, ({ name, label }) => {
-			return (
-				<div key={name}>
-					<label>{label}</label>
-					<div>{formValues[name]}</div>
+		return (
+			<Fragment>
+				<div key='blog-title'>
+					<label>Blog Title</label>
+					<div>{title}</div>
 				</div>
-			);
-		});
+				<div key='content'>
+					<label>Content</label>
+					<div>{content}</div>
+				</div>
+			</Fragment>
+		);
 	}
 
-	function renderButtons() {
-		return (
+	return (
+		<form onSubmit={handleSubmit}>
+			<h5>Please confirm your entries</h5>
+			<div className='confirm'>{renderFields()}</div>
 			<div>
 				<button
 					className='yellow darken-3 white-text btn-flat'
@@ -34,20 +42,6 @@ function BlogFormReview({ formValues, history, onCancel }) {
 					<i className='material-icons right'>email</i>
 				</button>
 			</div>
-		);
-	}
-
-	function onSubmit(event) {
-		event.preventDefault();
-		submitBlog(formValues, history);
-	}
-
-	return (
-		<form onSubmit={onSubmit}>
-			<h5>Please confirm your entries</h5>
-			{renderFields}
-
-			{renderButtons}
 		</form>
 	);
 }

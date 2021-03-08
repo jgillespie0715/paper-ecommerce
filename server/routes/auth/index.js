@@ -21,4 +21,13 @@ authRouter.get('/logout', (req, res) => {
 	res.redirect('http://localhost:3000');
 });
 
+authRouter.post('/signup', (req, res) => {
+	console.log('email signup hit');
+	res.status(201).send({
+		email: 'test@test.com',
+		password: 'test-password',
+		displayName: 'test-user',
+	});
+});
+
 module.exports = authRouter;

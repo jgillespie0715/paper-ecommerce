@@ -1,29 +1,36 @@
-import React, { Fragment } from 'react';
-import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-import formFields from '../blog-form-fields/blog-form-fields.component';
-import BlogField from '../blog-field/blog-field.component';
-// TODO: add react-final-form
-function BlogForm({ onBlogSubmit }) {
-	function Field({ label, name }) {
-		return (
-			<Fragment>
-				key={name}
-				component={BlogField}
-				type="text" label={label}
-				name={name}
-			</Fragment>
-		);
-	}
-	function renderFields() {
-		return _.map(formFields, Field);
-	}
+import { Link } from 'react-router-dom';
+import FormInput from '../../components/form-input/form-input.component';
+
+function BlogForm({ onBlogSubmit, blogFields, setBlogFields }) {
+	const { title, content } = blogFields;
+
+	const handleChange = async (e) => {
+		const { name, value } = e.target;
+		setBlogFields({ ...blogFields, [name]: value });
+	};
 
 	return (
-		<div>
-			<form onSubmit={onBlogSubmit}>
-				{renderFields()}
+		<div className='blog-new'>
+			<h2 className='title'>Blog Form</h2>
+			<form className='blog-new-form' onSubmit={onBlogSubmit}>
+				<FormInput
+					type='text'
+					name='title'
+					value={title}
+					onChange={handleChange}
+					label='Blog Title'
+					required
+				></FormInput>
+				<FormInput
+					type='text'
+					name='content'
+					value={content}
+					onChange={handleChange}
+					label='Content'
+					required
+				></FormInput>
 				<Link to='/blogs' className='red btn-flat white-text'>
 					Cancel
 				</Link>

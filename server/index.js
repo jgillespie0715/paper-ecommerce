@@ -58,7 +58,15 @@ this app route DOES NOT get a callback, it will never be executed because google
 
 	app.use((error, req, res, next) => {
 		if (!error.statusCode) error.statusCode = 500;
-
+		if (error.name === 'CastError') {
+			// specifically handles that error. In my case,
+			// if session id gets corrupted, delete the cookie from client browser.
+			// req.logout alone was not enough.
+			// NB the cookie had been created by cookie-session
+			req.session = null;
+			req.logout;
+			return res.sendStatus(500);
+		}
 		if (error.statusCode === 301) {
 			return res.status(301).redirect('/not-found');
 		}

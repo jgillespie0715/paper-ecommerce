@@ -1,5 +1,4 @@
-import React, { useEffect, useContext } from 'react';
-import map from 'lodash/map';
+import React, { useEffect, useContext, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import BlogContext from '../../contexts/blog/blog.context';
 
@@ -10,30 +9,28 @@ function BlogList() {
 		fetchBlogs();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	function renderBlogs() {
-		return map(blogs, (blog) => {
+		return blogs.map(({ _id, title, content }) => {
 			return (
-				<div className='card darken-1 horizontal' key={blog._id}>
-					<div className='card-stacked'>
-						<div className='card-content'>
-							<span className='card-title'>{blog.title}</span>
-							<p>{blog.content}</p>
-						</div>
-						<div className='card-action'>
-							<Link to={`/blogs/${blog._id}`}>Read</Link>
+				<Fragment key={_id}>
+					<div className='card darken-1 horizontal'>
+						<div className='card-stacked'>
+							<div className='card-content'>
+								<span className='card-title'>{title}</span>
+								<p>{content}</p>
+							</div>
+							<div className='card-action'>
+								<Link to={`/blogs/${_id}`}>Read</Link>
+							</div>
 						</div>
 					</div>
-				</div>
+				</Fragment>
 			);
 		});
 	}
 
-	return (
-		<div>
-			BlogList
-			{renderBlogs()}
-		</div>
-	);
+	return <div>{renderBlogs()}</div>;
 }
 
 export default BlogList;

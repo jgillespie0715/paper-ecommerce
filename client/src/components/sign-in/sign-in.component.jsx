@@ -45,7 +45,7 @@ function SignIn() {
 				/>
 				<div className='buttons'>
 					<CustomButton type='submit'> Sign In </CustomButton>
-					<div class='google-btn'>
+					<div className='google-btn'>
 						<a href='/auth/google'>
 							<img
 								className='google-btn'

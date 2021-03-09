@@ -3,10 +3,6 @@ const router = express.Router();
 const { requireLogin } = require('./controllers');
 const Blog = require('../../models/Blog');
 
-router.get('/current_user', (req, res, next) => {
-	res.send(req.user);
-});
-
 router.get('/blogs/:id', requireLogin, async (req, res, next) => {
 	const blog = await Blog.findOne({
 		_user: req.user.id,

@@ -1,11 +1,63 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const bcrypt = require('bcrypt');
 
-// TODO: refactor schema to include signupWithEmail, look at stackoverflow bookmark
-const userSchema = new Schema({
-	googleId: String,
-	displayName: String,
+const userSchema = new Schema(
+	{
+		email: { type: String, unique: true },
+		password: String,
+		passwordResetToken: String,
+		passwordResetExpires: Date,
+		emailVerificationToken: String,
+		emailVerified: Boolean,
+
+		google: String,
+		tokens: Array,
+
+		profile: {
+			name: String,
+			gender: String,
+			location: String,
+			website: String,
+			picture: String,
+		},
+	},
+	{ timestamps: true }
+);
+
+/**
+ * Password hash middleware.
+ */
+userSchema.pre('save', function save(next) {
+	const user = this;
+	if (!user.isModified('password')) {
+		return next();
+	}
+	bcrypt.genSalt(10, (err, salt) => {
+		if (err) {
+			return next(err);
+		}
+		bcrypt.hash(user.password, salt, (err, hash) => {
+			if (err) {
+				return next(err);
+			}
+			user.password = hash;
+			next();
+		});
+	});
 });
+
+/**
+ * Helper method for validating user's password.
+ */
+userSchema.methods.comparePassword = function comparePassword(
+	candidatePassword,
+	cb
+) {
+	bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+		cb(err, isMatch);
+	});
+};
 
 const UserModel = mongoose.model('User', userSchema);
 

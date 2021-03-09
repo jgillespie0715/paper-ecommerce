@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthContext from '../../contexts/auth/auth.context';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
@@ -10,16 +10,24 @@ function SignIn() {
 	// https://i.ibb.co/HXxVL9R/btn-google-signin-dark-focus-web-2x.png
 	// https://i.ibb.co/K66dS53/btn-google-signin-dark-normal-web-2x.png
 	// https://i.ibb.co/yNBzVbQ/btn-google-signin-dark-pressed-web-2x.png
+
 	const authContext = useContext(AuthContext);
-	const { signInWithGoogle } = authContext;
+	const { signInWithEmail } = authContext;
+	const [userCredentials, setUserCredentials] = useState({
+		email: '',
+		password: '',
+	});
+
+	const { email, password } = userCredentials;
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		//do stuff
+		signInWithEmail({ email, password });
 	};
 
-	const handleChange = (e) => {
-		// do stuff
+	const handleChange = async (e) => {
+		const { name, value } = e.target;
+		setUserCredentials({ ...userCredentials, [name]: value });
 	};
 
 	return (
@@ -30,7 +38,7 @@ function SignIn() {
 				<FormInput
 					name='email'
 					type='email'
-					value=''
+					value={email}
 					handleChange={handleChange}
 					label='Email'
 					required
@@ -38,7 +46,7 @@ function SignIn() {
 				<FormInput
 					name='password'
 					type='password'
-					value=''
+					value={password}
 					handleChange={handleChange}
 					label='Password'
 					required

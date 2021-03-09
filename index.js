@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-// invoking a new app(express) instance
+// invoking a new app(express) instance in this fashion, because of the way app was exported from server/index
 const app = require('./server')();
 const chalk = require('chalk');
 const PORT = process.env.PORT || 5000;

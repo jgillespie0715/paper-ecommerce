@@ -9,13 +9,13 @@ function SignUp() {
 	const authContext = useContext(AuthContext);
 	const { signUp } = authContext;
 	const [userCredentials, setUserCredentials] = useState({
-		displayName: '',
+		username: '',
 		email: '',
 		password: '',
 		confirmPassword: '',
 	});
 
-	const { displayName, email, password, confirmPassword } = userCredentials;
+	const { username, email, password, confirmPassword } = userCredentials;
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -23,7 +23,7 @@ function SignUp() {
 			alert('passwords dont match');
 			return;
 		}
-		signUp({ displayName, email, password });
+		signUp({ username, email, password, confirmPassword });
 	};
 
 	const handleChange = async (e) => {
@@ -38,10 +38,10 @@ function SignUp() {
 			<form className='sign-up-form' onSubmit={handleSubmit}>
 				<FormInput
 					type='text'
-					name='displayName'
-					value={displayName}
+					name='username'
+					value={username}
 					onChange={handleChange}
-					label='Display Name'
+					label='username'
 					required
 				></FormInput>
 				<FormInput

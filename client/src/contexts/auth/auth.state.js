@@ -42,17 +42,13 @@ function AuthState(props) {
 		}
 	}
 
-	async function signInWithEmail() {
-		//  TODO: build out backend route and what response is being expected
+	async function signInWithEmail(values) {
 		try {
-			const { user } = await axios.get('/auth/signin');
-			console.log(
-				'email signIn success in signInfWithEmail in authState:',
-				user
-			);
-			dispatch({ type: SIGN_IN_SUCCESS, payload: user });
+			const { data } = await axios.post('/auth/login', values);
+			console.log('signUP success in authState:', data);
+			dispatch({ type: SIGN_IN_SUCCESS, payload: data });
 		} catch (error) {
-			console.log('error in signInWith Email in authState', error);
+			console.log('error in signUP in authState', error);
 			dispatch({ type: SIGN_IN_FAILURE, payload: error });
 		}
 	}
@@ -68,15 +64,9 @@ function AuthState(props) {
 		}
 	}
 
-	async function signUp(email, password, displayName) {
+	async function signUp(values) {
 		try {
-			// TODO: build out backend route and what response is being sent
-			// Will this sign in user as well after signup ?
-			const { data } = await axios.post('/auth/signup', {
-				email,
-				password,
-				displayName,
-			});
+			const { data } = await axios.post('/auth/signup', values);
 			console.log('signUP success in authState:', data);
 			dispatch({ type: SIGN_UP_SUCCESS, payload: data });
 		} catch (error) {

@@ -1,8 +1,8 @@
 const express = require('express');
 const connectDB = require('./models');
 const passport = require('passport');
-// const passport = require('./services/passport');
-const cookieSession = require('cookie-session');
+const session = require('express-session');
+const MongoStore = require('connect-mongo').default;
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
@@ -19,9 +19,15 @@ module.exports = () => {
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(
-		cookieSession({
-			maxAge: 30 * 24 * 60 * 60 * 1000,
-			keys: [process.env.COOKIEKEY],
+		session({
+			resave: true,
+			saveUninitialized: true,
+			secret: process.env.SESSION_SECRET,
+			cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
+			store: MongoStore.create({
+				mongoUrl: process.env.MONGODB_URI,
+				autoReconnect: true,
+			}),
 		})
 	);
 
@@ -30,12 +36,32 @@ module.exports = () => {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
+	app.use((req, res, next) => {
+		// After successful login, redirect back to the intended page
+		if (
+			!req.user &&
+			req.path !== '/login' &&
+			req.path !== '/signup' &&
+			!req.path.match(/^\/auth/) &&
+			!req.path.match(/\./)
+		) {
+			req.session.returnTo = req.originalUrl;
+		} else if (
+			req.user &&
+			(req.path === '/account' || req.path.match(/^\/api/))
+		) {
+			req.session.returnTo = req.originalUrl;
+		}
+		next();
+	});
+
 	/*
 ****************************************************************************
 this app route DOES NOT get a callback, it will never be executed because google executes its own network call to the callback route
-// throws error if put into route file with current config
+// throws error if put into route file with current config because react client is proxying and the signinwithgoogle link is relative, not an api call
 
 */
+
 	app.get(
 		'/auth/google',
 
@@ -45,6 +71,7 @@ this app route DOES NOT get a callback, it will never be executed because google
 			prompt: 'consent',
 		})
 	);
+
 	app.use('/api', blogRoutes);
 	app.use('/auth', authRoutes);
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import BlogContext from './blog.context';
 import BlogReducer from './blog.reducer';
 import { FETCH_BLOGS, FETCH_BLOG, SHOW_FORM_REVIEW } from '../types';
-// TODO: take showFormReview out using component level state
+
 function BlogState(props) {
 	const initialState = {
 		showFormReview: false,
@@ -63,8 +63,6 @@ function BlogState(props) {
 	}
 
 	async function fetchBlog(id) {
-		console.log('fetch blog by id: ', id);
-
 		// const res = await axios.get(`/api/blogs/${id}`);
 		// const res = {
 		// 	data: {

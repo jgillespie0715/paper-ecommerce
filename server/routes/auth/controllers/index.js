@@ -91,7 +91,8 @@ exports.postSignup = async (req, res, next) => {
 				if (err) {
 					return next(err);
 				}
-				next();
+				console.log('success', { msg: 'Success! You are signedup in.' });
+				res.redirect(req.session.returnTo || '/');
 			});
 		});
 	} catch (error) {

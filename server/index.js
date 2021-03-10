@@ -12,7 +12,6 @@ const authRoutes = require('./routes/auth');
 
 module.exports = () => {
 	const app = express();
-	// server config and db connect
 	dotenv.config({ path: '.env' });
 	connectDB();
 	app.use(cors());
@@ -23,7 +22,7 @@ module.exports = () => {
 			resave: true,
 			saveUninitialized: true,
 			secret: process.env.SESSION_SECRET,
-			cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
+			cookie: { maxAge: 900000 }, // 15mins in milliseconds
 			store: MongoStore.create({
 				mongoUrl: process.env.MONGODB_URI,
 				autoReconnect: true,
@@ -32,7 +31,7 @@ module.exports = () => {
 	);
 
 	require('./services/passport');
-	// Passport OAuth session
+
 	app.use(passport.initialize());
 	app.use(passport.session());
 
@@ -89,7 +88,6 @@ this app route DOES NOT get a callback, it will never be executed because google
 			// specifically handles that error. In my case,
 			// if session id gets corrupted, delete the cookie from client browser.
 			// req.logout alone was not enough.
-			// NB the cookie had been created by cookie-session
 			req.session = null;
 			req.logout;
 			return res.sendStatus(500);

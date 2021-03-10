@@ -25,17 +25,14 @@ authRouter.get(
 // 	}
 // );
 
-authRouter.get('/current_user', (req, res, next) => {
-	console.log('HIT current_user');
-	res.send(req.user);
+authRouter.get('/current_user', isAuthenticated, (req, res, next) => {
+	res.send(req.user._id);
 });
 
 authRouter.post('/login', postLogin);
 
 authRouter.get('/logout', logout);
 
-authRouter.post('/signup', postSignup, (req, res, next) => {
-	res.redirect(req.session.returnTo || '/');
-});
+authRouter.post('/signup', postSignup);
 
 module.exports = authRouter;

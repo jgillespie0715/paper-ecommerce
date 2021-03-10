@@ -17,7 +17,6 @@ import './App.css';
 function App() {
 	const authContext = useContext(AuthContext);
 	const { isUserAuthenticated, currentUser } = authContext;
-	//  TODO: no /:login in routes, figure out how to do this
 	useEffect(() => {
 		isUserAuthenticated();
 		// eslint-disable-next-line react-hooks/exhaustive-deps

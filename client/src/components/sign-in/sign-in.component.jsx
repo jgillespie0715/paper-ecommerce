@@ -6,11 +6,6 @@ import CustomButton from '../custom-button/custom-button.component';
 import './sign-in.styles.scss';
 
 function SignIn() {
-	// https://i.ibb.co/mrnJ6r6/btn-google-signin-dark-disabled-web-2x.png
-	// https://i.ibb.co/HXxVL9R/btn-google-signin-dark-focus-web-2x.png
-	// https://i.ibb.co/K66dS53/btn-google-signin-dark-normal-web-2x.png
-	// https://i.ibb.co/yNBzVbQ/btn-google-signin-dark-pressed-web-2x.png
-
 	const authContext = useContext(AuthContext);
 	const { signInWithEmail } = authContext;
 	const [userCredentials, setUserCredentials] = useState({

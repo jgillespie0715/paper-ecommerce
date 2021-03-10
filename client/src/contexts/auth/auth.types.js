@@ -1,3 +1,4 @@
+export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE';
 export const SIGN_OUT_START = 'SIGN_OUT_START';

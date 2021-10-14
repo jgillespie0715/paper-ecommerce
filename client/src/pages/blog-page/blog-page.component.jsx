@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext from '../../contexts/auth/auth.context';
+import AuthContext from '../../contexts/auth/context';
 import Dashboard from '../blog-dashboard-page/blog-dashboard-page.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
 

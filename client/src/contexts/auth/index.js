@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
-import AuthContext from './auth.context';
-import AuthReducer from './auth.reducer';
+import AuthContext from './context';
+import AuthReducer from './reducers';
 import {
 	GET_CURRENT_USER,
 	SIGN_IN_SUCCESS,
@@ -10,7 +10,7 @@ import {
 	SIGN_OUT_FAILURE,
 	SIGN_UP_SUCCESS,
 	SIGN_UP_FAILURE,
-} from './auth.types.js';
+} from './types/auth.types.js';
 
 function AuthState(props) {
 	const INITIAL_STATE = {

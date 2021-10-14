@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const chalk = require('chalk');
 module.exports = () => {
 	// SAFE TO IGNORE: listening to events on Db class, its deprecated and will be removed on next version
 	// https://developer.mongodb.com/community/forums/t/warning-accessing-non-existent-property-mongoerror-of-module-exports-inside-circular-dependency/15411/6

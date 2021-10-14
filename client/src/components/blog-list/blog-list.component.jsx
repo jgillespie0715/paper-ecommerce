@@ -11,7 +11,7 @@ function BlogList() {
 	}, []);
 
 	function renderBlogs() {
-		return blogs.map(({ _id, title, content }) => {
+		return blogs.map(({ _id, title, content, _user }) => {
 			return (
 				<Fragment key={_id}>
 					<div className='card darken-1 horizontal'>
@@ -21,7 +21,16 @@ function BlogList() {
 								<p>{content}</p>
 							</div>
 							<div className='card-action'>
-								<Link to={`/blogs/${_id}`}>Read</Link>
+								{(location) => ({ ...location, pathname: '/courses' })}
+								<Link
+									to={(location) => ({
+										...location,
+										pathname: `/blogs/${_id}`,
+										state: { userid: _user },
+									})}
+								>
+									Read
+								</Link>
 							</div>
 						</div>
 					</div>

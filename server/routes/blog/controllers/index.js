@@ -5,6 +5,18 @@ const requireLogin = (req, res, next) => {
 	next();
 };
 
+const isAuthenticated = (req, res, next) => {
+	try {
+		if (req.isAuthenticated()) {
+			return next();
+		} else {
+			res.redirect('/auth/login');
+		}
+	} catch (error) {
+		next(error);
+	}
+};
 module.exports = {
 	requireLogin,
+	isAuthenticated,
 };

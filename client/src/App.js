@@ -7,7 +7,7 @@ import ShopPage from './pages/shop-page/shop-page.component';
 import SignInAndSignUp from './pages/signin-signup-page/signin-signup.component';
 import Header from './components/header/header.component';
 import BlogPage from './pages/blog-page/blog-page.component';
-import AuthContext from './contexts/auth/auth.context';
+import AuthContext from './contexts/auth/context';
 import BlogNew from './pages/blog-new-page/blog-new-page.component';
 import BlogShow from './pages/blog-show-page/blog-show-page.component';
 import Dashboard from './pages/blog-dashboard-page/blog-dashboard-page.component';

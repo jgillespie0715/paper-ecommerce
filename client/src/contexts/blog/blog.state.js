@@ -2,7 +2,13 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import BlogContext from './blog.context';
 import BlogReducer from './blog.reducer';
-import { FETCH_BLOGS, FETCH_BLOG, SHOW_FORM_REVIEW } from '../types';
+import {
+	FETCH_BLOGS,
+	FETCH_BLOG,
+	SHOW_FORM_REVIEW,
+	FETCH_BLOGS_FAILURE,
+	FETCH_BLOG_FAILURE,
+} from './blog.types';
 
 function BlogState(props) {
 	const initialState = {
@@ -14,74 +20,39 @@ function BlogState(props) {
 	const [state, dispatch] = useReducer(BlogReducer, initialState);
 
 	async function submitBlog(values, history) {
-		// const res = await axios.post('/api/blogs', values);
-		const res = { data: { values, _id: 123 } };
-		// after submit goes to dashboard
-		history.push('/blogs');
-		dispatch({ type: FETCH_BLOG, payload: res.data });
+		try {
+			const { data } = await axios.post('/api/blogs', values);
+			history.push('/blogs');
+			dispatch({ type: FETCH_BLOG, payload: data });
+		} catch (error) {
+			dispatch({ type: FETCH_BLOG_FAILURE, payload: error });
+		}
 	}
 
 	async function fetchBlogs() {
-		// const res = await axios.get('/api/blogs');
-
-		const res = {
-			data: [
-				{
-					_id: 1,
-					title: 'first blog',
-					content: 'my first blog',
-				},
-				{
-					_id: 2,
-					title: 'second blog',
-					content: 'my second blog',
-				},
-				{
-					_id: 3,
-					title: 'third blog',
-					content: 'my third blog',
-				},
-				{
-					_id: 4,
-					title: 'fourth blog',
-					content: 'my fourth blog',
-				},
-				{
-					_id: 5,
-					title: 'fifth blog',
-					content: 'my fifth blog',
-				},
-				{
-					_id: 6,
-					title: 'sixth blog',
-					content: 'my sixth blog',
-				},
-			],
-		};
-
-		dispatch({ type: FETCH_BLOGS, payload: res.data });
+		try {
+			const { data } = await axios.get('/api/blogs');
+			dispatch({ type: FETCH_BLOGS, payload: data });
+		} catch (error) {
+			dispatch({ type: FETCH_BLOGS_FAILURE, payload: error });
+		}
 	}
 
-	async function fetchBlog(id) {
-		// const res = await axios.get(`/api/blogs/${id}`);
-		// const res = {
-		// 	data: {
-		// 		user: 'testuser',
-		// 		_id: 1,
-		// 		title: 'test title',
-		// 		msg: 'test msg',
-		// 	},
-		// };
-		// dispatch({ type: FETCH_BLOG, payload: res.data });
-		dispatch({
-			type: FETCH_BLOG,
-			payload: {
-				user: 'testuser',
-				_id: id,
-				title: 'test title',
-				content: 'test msg',
-			},
-		});
+	async function fetchBlog(id, userId) {
+		try {
+			const { data } = await axios({
+				method: 'post',
+				baseURL: 'http://localhost:5000',
+				url: `api/blogs/${id}`,
+				data: {
+					id: id,
+					userId: userId,
+				},
+			});
+			dispatch({ type: FETCH_BLOG, payload: data });
+		} catch (error) {
+			dispatch({ type: FETCH_BLOG_FAILURE, payload: error });
+		}
 	}
 
 	function setShowFormReview() {

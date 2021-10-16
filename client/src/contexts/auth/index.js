@@ -10,7 +10,8 @@ import {
 	SIGN_OUT_FAILURE,
 	SIGN_UP_SUCCESS,
 	SIGN_UP_FAILURE,
-} from './types/auth.types.js';
+} from './types/index.js';
+import responses from './axios';
 
 function AuthState(props) {
 	const INITIAL_STATE = {
@@ -19,11 +20,11 @@ function AuthState(props) {
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
+	const { getCurrentUser } = responses;
 
 	async function isUserAuthenticated() {
 		try {
-			const { data } = await axios.get('/auth/current_user');
-			dispatch({ type: GET_CURRENT_USER, payload: data });
+			dispatch({ type: GET_CURRENT_USER, payload: getCurrentUser() });
 		} catch (error) {
 			dispatch({ type: SIGN_IN_FAILURE, payload: error });
 		}

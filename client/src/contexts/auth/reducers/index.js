@@ -6,7 +6,7 @@ import {
 	SIGN_OUT_FAILURE,
 	SIGN_UP_SUCCESS,
 	SIGN_UP_FAILURE,
-} from '../types/auth.types.js';
+} from '../types/index.js';
 
 function AuthReducer(state, action) {
 	switch (action.type) {

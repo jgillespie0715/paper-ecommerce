@@ -11,7 +11,7 @@ import {
 	SIGN_UP_SUCCESS,
 	SIGN_UP_FAILURE,
 } from './types/index.js';
-import { getCurrentUserRes } from './axios';
+import { getCurrentUserRes, getGoogleUserRes } from './axios';
 
 function AuthState(props) {
 	const INITIAL_STATE = {
@@ -33,9 +33,10 @@ function AuthState(props) {
 
 	async function signInWithGoogle() {
 		try {
-			const { user } = await axios.get('/auth/google');
+			const { user } = await getGoogleUserRes;
 			dispatch({ type: SIGN_IN_SUCCESS, payload: user });
 		} catch (error) {
+			console.log('error in signInWithGoogle');
 			dispatch({ type: SIGN_IN_FAILURE, payload: error });
 		}
 	}

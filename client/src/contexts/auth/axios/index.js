@@ -3,6 +3,8 @@ import requests from './requests';
 
 import buildQuery from '../utils';
 
-const { getCurrentUserReqObj } = requests;
+const { getCurrentUserReqObj, getGoogleUserReqObj } = requests;
 
 export const getCurrentUserRes = buildQuery(axios)(getCurrentUserReqObj);
+
+export const getGoogleUserRes = buildQuery(axios)(getGoogleUserReqObj);

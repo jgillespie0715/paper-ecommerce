@@ -11,7 +11,7 @@ import {
 	SIGN_UP_SUCCESS,
 	SIGN_UP_FAILURE,
 } from './types/index.js';
-import responses from './axios';
+import { getCurrentUserRes } from './axios';
 
 function AuthState(props) {
 	const INITIAL_STATE = {
@@ -20,12 +20,13 @@ function AuthState(props) {
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
-	const { getCurrentUser } = responses;
 
 	async function isUserAuthenticated() {
 		try {
-			dispatch({ type: GET_CURRENT_USER, payload: getCurrentUser() });
+			const { data } = await getCurrentUserRes;
+			dispatch({ type: GET_CURRENT_USER, payload: data });
 		} catch (error) {
+			console.log('error in isUserAuthenticated: ', error);
 			dispatch({ type: SIGN_IN_FAILURE, payload: error });
 		}
 	}
